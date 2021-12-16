@@ -3,6 +3,7 @@ from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
 
 
+
 # data classes:
 classes= ['airplane','automobile','bird','cat','deer','dog','frog','horse','ship','truck']
 
@@ -11,3 +12,14 @@ classes= ['airplane','automobile','bird','cat','deer','dog','frog','horse','ship
 # normalizing dataset:
 trainImages, testImages= trainImages/255.0, testImages/255.0
 
+# desgining tme model:
+model= models.Sequential()
+model.add(layers.Conv2D(32, (3,3), activation='relu', input_shape=(32,32,3)))
+model.add(layers.MaxPooling2D((2,2)))
+model.add(layers.Conv2D(32, (3,3), activation='relu', input_shape=(32,32,3)))
+model.add(layers.MaxPooling2D((2,2)))
+model.add(layers.Conv2D(32, (3,3), activation='relu', input_shape=(32,32,3)))
+model.add(layers.MaxPooling2D((2,2)))
+model.add(layers.Flatten())
+model.add(layers.Dense(64, activation='relu'))
+model.add(layers.Dense(10))
