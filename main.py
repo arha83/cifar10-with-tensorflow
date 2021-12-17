@@ -1,7 +1,7 @@
 import os
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import datasets, layers, models, losses, callbacks
+from tensorflow.keras import datasets, layers, models, losses
 
 
 
@@ -27,9 +27,12 @@ model.add(layers.MaxPooling2D((2,2)))
 model.add(layers.Flatten())
 model.add(layers.Dense(64, activation='relu'))
 model.add(layers.Dense(10))
+# loading model:
+print('### loading model...')
+model= models.load_model(os.path.dirname(os.path.abspath(__file__))+'\\myModel')
 
 # training:
 print('### training...')
 model.compile(optimizer='adam', loss=losses.SparseCategoricalCrossentropy(from_logits=True),metrics=['accuracy'])
-model.fit(trainImages, trainLabels, epochs=1, validation_data=(testImages, testLables))
+model.fit(trainImages, trainLabels, epochs=10, validation_data=(testImages, testLables))
 model.save(os.path.dirname(os.path.abspath(__file__))+'\\myModel')
